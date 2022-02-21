@@ -1,39 +1,27 @@
-// test to fetch api to get data from mtg domain
+
+// getting data from magic the gathering API from another file
+
+import {getInfo} from "./data/data.js"
+
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
-  let cardsGrid = document.getElementById("cards-grid");
-  let cards = [];
 
-  fetch("https://api.magicthegathering.io/v1/cards")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let cards = data;
-      console.log(cards);
-    });
+  // declaration of global vasriables
 
-  // show cards
+  let cardsGrid = document.getElementById('grid-container');
+ // console.log(cardsGrid);\
 
-  function showCards(cards) {
-    cardsGrid.innerHTML = "";
+ // page addEventListener
 
-    cards.map((card) => {
-      cardsGrid.innerHTML = `
-        
-        <article>
-          <img src=${card.imageUrl} alt="card image" />
-        </article>
+ //script logic
 
-        `;
-    });
-  }
+ // methods
+ 
+ getInfo(); // show all cards
 
-  cards.map((card) => {
-    cardsGrid.innerHTML += `
+
     
-    
-    `;
-  });
-}
+} 
+
+
