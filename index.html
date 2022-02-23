@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css" />
-    <title>MTG draft</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="categories">
-       <div class="edition-choice">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
+  <title>MTG draft</title>
+</head>
+
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1 class="main-title">My MTG</h1>
+      <h3 class="brief-presentation">Welcome to My MTG. A micro application where you can show you card collection, and
+        organize it your way. Here you can add your cards. check their values and much more</h3>
+    </header>
+    <div class="main-content">
+      <div class="sidebar">
+        <div class="edition-choice">
           <h4>Choose en edition:</h4>
           <select>
             <option value="1">sdfvdsfv</option>
@@ -22,58 +30,40 @@
             <option value="7">vfdvdfv</option>
           </select>
         </div>
-       <div class="search-cards">
-          <h4>Search cards</h4>
-          <ul>
-            <li>Add cards</li>
-            <li>Delete cards</li>
-            <li>Add a note to your card</li>
-            <li>Check your cards market value:</li>
-          </ul>
-       </div>
-       <div class="sort-cards">
-          <h4>Sort by:</h4>
-          <ul>
-            <li>Type</li>
-            <li>Color</li>
-            <li>Price</li> 
-          </ul>
-        </div> 
-      </div>  
-      <div class="main-content">
-        <header class="hero">
-          <h1 class="main-title">My MTG</h1>
-          <h3 class="brief-presentation">Welcome to My MTG. A micro application where you can show you card collection, and organize it your way. Here you can add your cards. check their values and much more</h3>
-        </header>
-        <div class="grid-cards" id="grid-container">
-         <!--  <article>
-            <img src="/pix/samples/23m.jpg" alt="Sample photo">
-          </article>
-          <article>
-            <img src="/pix/samples/24m.jpg" alt="Sample photo">
-          </article>
-          <article>
-            <img src="/pix/samples/22l.jpg" alt="Sample photo">
-          </article>
-          <article>
-            <img src="/pix/samples/15l.jpg" alt="Sample photo">
-          </article>
-          <article>
-            <img src="/pix/samples/25m.jpg" alt="Sample photo">
-          </article>
-          <article>
-            <img src="/pix/samples/16l.jpg" alt="Sample photo">
-          </article> -->
+        <div class="sidebar-filters">
+          <div class="filter-cards">
+            <h4>Filter cards</h4>
+            <ul>
+              <li>Add cards</li>
+              <li>Delete cards</li>
+              <li>Add a note to your card</li>
+              <li>Check your cards market value:</li>
+            </ul>
+          </div>
+          <div class="sort-cards">
+            <h4>Sort by:</h4>
+            <ul>
+              <li>Type</li>
+              <li>Color</li>
+              <li>Price</li>
+            </ul>
+          </div>
         </div>
-      </div>  
       </div>
-      <footer>
-        <section class="footer-links">
-          <a href="">github</a>
-          <a href="">instagram</a>
-          <a href="">linkedin</a>
-        </section>
-      </footer>
-    <script type="module" src="index.js"></script>
-  </body>
+      <div class="grid-container">
+        <div class="grid-cards" id="grid-container">
+        </div>
+      </div>
+    </div>
+    <footer>
+      <section class="footer-links">
+        <a href="">github</a>
+        <a href="">instagram</a>
+        <a href="">linkedin</a>
+      </section>
+    </footer>
+  </div>
+  <script type="module" src="index.js"></script>
+</body>
+
 </html>
