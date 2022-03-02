@@ -85,6 +85,15 @@ h4 {
   margin: 5px;
 }
 
+div input {
+  margin-right: 30px;
+}
+
+.color-choice {
+  margin-bottom: 30px;
+  border: 2px solid brown;
+}
+
 footer {
   border: 8px solid rgb(54, 33, 33);
   background-color: rgba(214, 151, 34, 0.287);

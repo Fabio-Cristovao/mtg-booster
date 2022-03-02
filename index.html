@@ -21,15 +21,47 @@
         
         <div class="sidebar-filters">
           <div>
-            <button id="show-all-cards">show all cards</button>
-            <input type="text" placeholder="Search cards" id="title-search">
-            
-        
+            <form id="title-search-form">
+              <input type="text" placeholder="Search cards name..." id="title-search">
+              <button id="search-btn" type="submit">Show cards</button>
+            </form>
+            <form id="color-search">
+              <div class="color-search">
+                <label for="green">Green</label>
+                <input type="checkbox" id="green" name="green">
+                <label for="red">Red</label>
+                <input type="checkbox" id="red" name="red">
+                <label for="blue">Blue</label>
+                <input type="checkbox" id="blue" name="blue">
+                <label for="white">White</label>
+                <input type="checkbox" id="white" name="white">
+                <label for="black">Black</label>
+                <input type="checkbox" id="black" name="black">
+                <button id="search-color-btn" type="submit">show cards by color</button>
+              </div>
+              <!-- <div class="and-or">
+                <label for="and">And</label>
+                <input type="radio">
+                <label for="or">Or</label>
+                <input type="radio">
+              </div> -->
+            </form>
           </div>
           <div class="filter-cards">
             <h4>Filter cards</h4>
             <ul>
-              <li>Add cards</li>
+              <li>
+                <!-- <form>
+                  <label for="color">Color:</label>
+                  <select name="color" id="choose-color">
+                    <option value="green">green</option>
+                    <option value="blue">blue</option>
+                    <option value="red">red</option>
+                    <option value="white">white</option>
+                    <option value="black">black</option>
+                  </select>
+                </form> -->
+              </li>
               <li>Delete cards</li>
               <li>Add a note to your card</li>
               <li>Check your cards market value:</li>
@@ -45,8 +77,16 @@
           </div>
         </div>
       </div>
-      <div class="grid-container">
-        <div class="grid-cards" id="grid-container">
+      <div>
+        <div class="grid-container">
+          <div class="grid-cards" id="my-cards-container">
+          </div>
+        </div>
+      </div>
+      <div class="all-cards-container">
+        <div class="grid-container">
+          <div class="grid-cards" id="all-cards-container">
+          </div>
         </div>
       </div>
     </div>
