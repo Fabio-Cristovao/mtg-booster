@@ -1,104 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="index.css" />
-  <title>MTG draft</title>
-</head>
-
-<body>
-  <div class="container">
-    <header class="hero">
-      <h1 class="main-title">My MTG</h1>
-      <h3 class="brief-presentation">Welcome to My MTG. A micro application where you can show you card collection, and
-        organize it your way. Here you can add your cards. check their values and much more</h3>
-    </header>
-    <div class="main-content">
-      <div class="sidebar">
-        
-        <div class="sidebar-filters">
-          <div>
-            <form id="title-search-form">
-              <input type="text" placeholder="Search cards name..." id="title-search">
-              <button id="search-btn" type="submit">Show cards</button>
-            </form>
-            <form id="color-search">
-              <div class="color-search">
-                <label for="green">Green</label>
-                <input type="checkbox" id="green" name="green">
-                <label for="red">Red</label>
-                <input type="checkbox" id="red" name="red">
-                <label for="blue">Blue</label>
-                <input type="checkbox" id="blue" name="blue">
-                <label for="white">White</label>
-                <input type="checkbox" id="white" name="white">
-                <label for="black">Black</label>
-                <input type="checkbox" id="black" name="black">
-                <button id="search-color-btn" type="submit">show cards by color</button>
-              </div>
-              <!-- <div class="and-or">
-                <label for="and">And</label>
-                <input type="radio">
-                <label for="or">Or</label>
-                <input type="radio">
-              </div> -->
-            </form>
-          </div>
-          <div class="filter-cards">
-            <h4>Filter cards</h4>
-            <ul>
-              <li>
-                <!-- <form>
-                  <label for="color">Color:</label>
-                  <select name="color" id="choose-color">
-                    <option value="green">green</option>
-                    <option value="blue">blue</option>
-                    <option value="red">red</option>
-                    <option value="white">white</option>
-                    <option value="black">black</option>
-                  </select>
-                </form> -->
-              </li>
-              <li>Delete cards</li>
-              <li>Add a note to your card</li>
-              <li>Check your cards market value:</li>
-            </ul>
-          </div>
-          <div class="sort-cards">
-            <h4>Sort by:</h4>
-            <ul>
-              <li>Type</li>
-              <li>Color</li>
-              <li>Price</li>
-            </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>MTG draft</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="hero">
+        <h1 class="main-title">My MTG</h1>
+        <p class="brief-presentation">
+          Welcome to My MTG. A micro application where you can show you card
+          collection, and organize it your way. Here you can add your cards.
+          check their values and much more
+        </p>
+      </header>
+      <div class="main-content">
+        <div class="sidebar">
+          <div class="sidebar-filters">
+            <h1 class="filters-title">Filters</h1>
+            <div class="filters-form">
+              <form>
+                <section class="search-title-form">
+                  <form id="title-search-form">
+                    <input
+                      type="text"
+                      placeholder="Search cards name..."
+                      id="title-search"
+                    />
+                    <button id="search-btn" type="submit">Show cards</button>
+                  </form>
+                </section>
+              </form>
+            </div>
+            <div class="sort-cards"></div>
           </div>
         </div>
-      </div>
-      <div>
-        <div class="grid-container">
-          <div class="grid-cards" id="my-cards-container">
-          </div>
+        <div class="all-cards-container">
+          <div class="grid-cards" id="all-cards-container"></div>
         </div>
       </div>
-      <div class="all-cards-container">
-        <div class="grid-container">
-          <div class="grid-cards" id="all-cards-container">
-          </div>
-        </div>
-      </div>
+      <footer>
+        <section class="footer-links">
+          <a href="">github</a>
+          <a href="">instagram</a>
+          <a href="">linkedin</a>
+        </section>
+      </footer>
     </div>
-    <footer>
-      <section class="footer-links">
-        <a href="">github</a>
-        <a href="">instagram</a>
-        <a href="">linkedin</a>
-      </section>
-    </footer>
-  </div>
-  <script type="module" src="index.js"></script>
-</body>
-
+    <script type="module" src="index.js"></script>
+  </body>
 </html>

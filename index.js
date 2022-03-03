@@ -12,7 +12,7 @@ function init() {
   console.log(searchInput);
   let colorSearch = document.querySelector(".color-search");
   console.log(colorSearch);
-  
+
 
 
 
@@ -29,11 +29,11 @@ function init() {
 
   //script logic
 
-  function chooseColor (e) {
+  function chooseColor(e) {
 
     let color = e.target.id;
 
-    if (color.checked === true){
+    if (color.checked === true) {
 
       console.log("color selected",)
 
@@ -43,36 +43,35 @@ function init() {
 
 
   }
-  
+
   function showCards(e) {
 
     e.preventDefault();
-    
+
     let cardName = "";
     cardName = searchInput.value
-    
+
     //console.log(cardName);
 
     let cards = [];
 
-    if (cardName !== ""){
+    if (cardName !== "") {
       fetch(`https://api.magicthegathering.io/v1/cards?name=${cardName}`)
-      .then(response => response.json())
-      .then(data => {
+        .then(response => response.json())
+        .then(data => {
 
-        cards = data.cards;
+          cards = data.cards;
 
-        showCards()
-        //console.log(cards)
-      })
-      .catch(error => cardsGrid.textContent = 'erro ao carregar cartas');
+          showCards()
+          //console.log(cards)
+        })
+        .catch(error => cardsGrid.textContent = 'erro ao carregar cartas');
+    } else {
+
     }
-    else { 
 
-    }
 
-    
-      
+
 
 
 
@@ -99,17 +98,17 @@ function init() {
             `
       });
 
-      
+
 
       // console.log(showCards);
 
     }
 
     cardName = "";
-  } 
-
-
   }
+
+
+}
 
 
 ;
