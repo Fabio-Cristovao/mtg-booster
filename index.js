@@ -3,140 +3,97 @@
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
-
   // declaration of global vasriables
 
-  let cardsGrid = document.querySelector('#all-cards-container');
+  let cardsGrid = document.querySelector("#all-cards-container");
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
-  console.log(searchInput);
-  let colorSearch = document.querySelector(".color-search");
-  console.log(colorSearch);
+  console.log(searchInput.value);
+  let colorSection = document.querySelector(".search-for-color");
 
+  // form color variables
 
-
-
+  let red = document.querySelector("#red");
+  let blue = document.querySelector("#blue");
+  let green = document.querySelector("#green");
+  let black = document.querySelector("#black");
+  let white = document.querySelector("#white");
 
   // console.log(cardsGrid);\
 
   // page addEventListener
 
-  //showCardsBtn.addEventListener("click", showCards, false);
+  colorSection.addEventListener("change", colorSelection, false);
   showCardsBtn.addEventListener("click", showCards, false);
-  /* searchColor.addEventListener("change", chooseColor, false)
-  console.log(searchColor); */
-  colorSearch.addEventListener("click", chooseColor, false)
 
   //script logic
 
-  function chooseColor(e) {
+  let cardName = searchInput.value;
+  console.log();
+  let cards = [];
+  let cardColor = [];
+  let colorString;
+  let url;
 
+  function colorSelection(e) {
     let color = e.target.id;
+    if (e.target.checked === true) {
+      //console.log(e.target.id);
 
-    if (color.checked === true) {
+      cardColor.push(color);
 
-      console.log("color selected",)
-
+      colorString = cardColor.toString();
+      console.log(colorString);
     }
-
-
-
-
   }
 
   function showCards(e) {
-
-    e.preventDefault();
-
-    let cardName = "";
-    cardName = searchInput.value
-
-    //console.log(cardName);
-
-    let cards = [];
-
-    if (cardName !== "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?name=${cardName}`)
-        .then(response => response.json())
-        .then(data => {
-
+    console.log(searchInput.value);
+    if (searchInput.value == "") {
+      fetch(`https://api.magicthegathering.io/v1/cards?colors=${colorString}`)
+        .then((response) => response.json())
+        .then((data) => {
           cards = data.cards;
-
-          showCards()
-          //console.log(cards)
+          showCardsFilters();
         })
-        .catch(error => cardsGrid.textContent = 'erro ao carregar cartas');
+        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
     } else {
+      console.log("false");
 
+      fetch(
+        `https://api.magicthegathering.io/v1/cards?name=${searchInput.value}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          cards = data.cards;
+          showCardsFilters();
+        })
+        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
     }
 
+    e.preventDefault();
+  }
 
+  //console.log(cardName);
 
+  function showCardsFilters() {
+    cardsGrid.innerHTML = "";
 
+    cards.map((card) => {
+      let { imageUrl, name } = card;
 
-
-    function showCards() {
-
-      cardsGrid.innerHTML = "";
-
-      cards.map(card => {
-
-        let {
-
-          imageUrl,
-          name,
-
-        } = card;
-
-        cardsGrid.innerHTML += `
+      cardsGrid.innerHTML += `
 
             <article>
               <img src='${imageUrl}' alt='${name}'/>
               <button>Add card</button>
               <button>Remove card</button>
             </article>
-            `
-      });
+            `;
+    });
 
-
-
-      // console.log(showCards);
-
-    }
-
-    cardName = "";
+    // console.log(showCards);
   }
 
-
+  cardName = "";
 }
-
-
-;
-
-//show all cards
-
-
-
-
-/* function paginated_fetch(
-  url = "https://api.magicthegathering.io/v1/cards?", // Improvised required argument in JS
-  page = 1,
-  previousResponse = []
-) {
-  return fetch(`${url}&page=${page}`) // Append the page number to the base URL
-    .then(response => response.json())
-    .then(newResponse => {
-      const response = [...previousResponse, ...newResponse]; // Combine the two arrays
-
-      if (response.length !== 0) {
-        page++;
-
-        return paginated_fetch(url, page, response);
-      }
-
-      return response;
-    });
-}
-
-let cards = paginated_fetch(`https://api.magicthegathering.io/v1/cards?`)
-console.log(cards) */

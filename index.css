@@ -81,6 +81,24 @@ body {
 .sidebar-filters h1 {
   color: rgba(133, 74, 47, 0.63);
   margin: 10px;
+  margin: 10px;
+}
+
+.search-for-color {
+  border: 2px solid rgba(133, 74, 47, 0.63);
+}
+
+.search-for-color h3 {
+  color: rgba(133, 74, 47, 0.63);
+}
+
+section label {
+  color: rgba(133, 74, 47, 0.63);
+  margin-left: 20px;
+}
+
+#search-btn {
+  margin-top: 20px;
 }
 
 .all-cards-container {
