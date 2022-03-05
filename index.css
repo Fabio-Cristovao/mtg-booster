@@ -86,14 +86,17 @@ body {
   margin: 10px;
 }
 
-.sidebar-filters h1 {
+.sidebar-filters h1,
+h3 {
   color: rgba(133, 74, 47, 0.63);
   margin: 10px;
   margin: 10px;
 }
 
 .search-for-color {
-  border: 2px solid rgba(133, 74, 47, 0.63);
+  border: 2px solid grey;
+  border-radius: 6px;
+  padding: 10px;
 }
 
 .search-for-color h3 {
@@ -102,11 +105,22 @@ body {
 
 section label {
   color: rgba(133, 74, 47, 0.63);
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 #search-btn {
-  margin-top: 20px;
+  margin: 25px;
+  padding: 5px 10px;
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.76);
+}
+
+#title-search {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 2px solid grey;
+  margin: 16px;
 }
 
 .all-cards-container {

@@ -5,13 +5,15 @@ document.addEventListener("DOMContentLoaded", init, false);
 function init() {
   // declaration of global variables
 
-  let cardsGrid = document.querySelector("#all-cards-container");
+  let allCardsGrid = document.querySelector("#all-cards-container");
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
   console.log(searchInput.value);
   let colorSection = document.querySelector(".search-for-color");
   let myCollection = document.querySelector("#my-cards-container");
-  console.log(myCollection);
+  //console.log(myCollection);
+  let myCollectionGrid = document.querySelector("#my-cards-container");
+  //console.log(myCollectionGrid);
 
   // form color variables
 
@@ -27,7 +29,8 @@ function init() {
 
   //colorSection.addEventListener("change", colorSelection, false);
   showCardsBtn.addEventListener("click", showCards, false);
-  cardsGrid.addEventListener("click", gridEvents, false);
+  allCardsGrid.addEventListener("click", allCardsGridEvents, false);
+  myCollectionGrid.addEventListener("click", myCollectionGridEvents, false);
 
   //script logic
 
@@ -48,7 +51,7 @@ function init() {
     }
   } */
 
-  function gridEvents(e) {
+  function allCardsGridEvents(e) {
     if (e.target.className === "add-btn") {
       let id = e.target.dataset.id;
       // console.log(id);
@@ -67,6 +70,8 @@ function init() {
     e.preventDefault();
   }
 
+  function myCollectionGridEvents(e) {}
+
   function showMyCards() {
     myCollection.innerHTML = "";
 
@@ -79,7 +84,7 @@ function init() {
 
             <article>
               <img src='${imageUrl}' alt='${name}'/>
-              <button class="add-btn" data-id=${id}>Add card</button>
+
               <button>Remove card</button>
             </article>
             `;
@@ -106,7 +111,9 @@ function init() {
           cards = data.cards;
           showCardsFilters();
         })
-        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+        .catch(
+          (error) => (allCardsGrid.textContent = "erro ao carregar cartas")
+        );
     }
 
     e.preventDefault();
@@ -115,17 +122,16 @@ function init() {
   //console.log(cardName);
 
   function showCardsFilters() {
-    cardsGrid.innerHTML = "";
+    allCardsGrid.innerHTML = "";
 
     cards.map((card) => {
       let { imageUrl, id } = card;
 
-      cardsGrid.innerHTML += `
+      allCardsGrid.innerHTML += `
 
             <article>
               <img src='${imageUrl}' alt='${name}'/>
               <button class="add-btn" data-id=${id}>Add card</button>
-              <button>Remove card</button>
             </article>
             `;
     });
