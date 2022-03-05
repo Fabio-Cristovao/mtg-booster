@@ -3,13 +3,15 @@
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
-  // declaration of global vasriables
+  // declaration of global variables
 
   let cardsGrid = document.querySelector("#all-cards-container");
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
   console.log(searchInput.value);
   let colorSection = document.querySelector(".search-for-color");
+  let myCollection = document.querySelector("#my-cards-container");
+  console.log(myCollection);
 
   // form color variables
 
@@ -23,19 +25,18 @@ function init() {
 
   // page addEventListener
 
-  colorSection.addEventListener("change", colorSelection, false);
+  //colorSection.addEventListener("change", colorSelection, false);
   showCardsBtn.addEventListener("click", showCards, false);
+  cardsGrid.addEventListener("click", gridEvents, false);
 
   //script logic
 
-  let cardName = searchInput.value;
-  console.log();
   let cards = [];
   let cardColor = [];
   let colorString;
-  let url;
+  let myCards = [];
 
-  function colorSelection(e) {
+  /* function colorSelection(e) {
     let color = e.target.id;
     if (e.target.checked === true) {
       //console.log(e.target.id);
@@ -45,10 +46,47 @@ function init() {
       colorString = cardColor.toString();
       console.log(colorString);
     }
+  } */
+
+  function gridEvents(e) {
+    if (e.target.className === "add-btn") {
+      let id = e.target.dataset.id;
+      // console.log(id);
+
+      cards.filter((card) => {
+        if (card.id === id) {
+          myCards.push(card);
+        }
+
+        showMyCards();
+      });
+
+      //console.log(myCards);
+    }
+
+    e.preventDefault();
+  }
+
+  function showMyCards() {
+    myCollection.innerHTML = "";
+
+    myCards.map((card) => {
+      let { imageUrl, name, id } = card;
+
+      console.log(myCards);
+
+      myCollection.innerHTML += `
+
+            <article>
+              <img src='${imageUrl}' alt='${name}'/>
+              <button class="add-btn" data-id=${id}>Add card</button>
+              <button>Remove card</button>
+            </article>
+            `;
+    });
   }
 
   function showCards(e) {
-    console.log(searchInput.value);
     if (searchInput.value == "") {
       fetch(`https://api.magicthegathering.io/v1/cards?colors=${colorString}`)
         .then((response) => response.json())
@@ -80,13 +118,13 @@ function init() {
     cardsGrid.innerHTML = "";
 
     cards.map((card) => {
-      let { imageUrl, name } = card;
+      let { imageUrl, id } = card;
 
       cardsGrid.innerHTML += `
 
             <article>
               <img src='${imageUrl}' alt='${name}'/>
-              <button>Add card</button>
+              <button class="add-btn" data-id=${id}>Add card</button>
               <button>Remove card</button>
             </article>
             `;
@@ -94,6 +132,4 @@ function init() {
 
     // console.log(showCards);
   }
-
-  cardName = "";
 }
