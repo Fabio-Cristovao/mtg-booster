@@ -31,6 +31,7 @@ function init() {
   showCardsBtn.addEventListener("click", showCards, false);
   allCardsGrid.addEventListener("click", allCardsGridEvents, false);
   myCollectionGrid.addEventListener("click", myCollectionGridEvents, false);
+  //console.log(myCollectionGrid);
 
   //script logic
 
@@ -70,7 +71,33 @@ function init() {
     e.preventDefault();
   }
 
-  function myCollectionGridEvents(e) {}
+  function myCollectionGridEvents(e) {
+    //console.log(e.target.id);
+
+    if (e.target.className === "del-btn") {
+      let delId = e.target.dataset.delbtn;
+      console.log(delId);
+      deleteCard(delId);
+    }
+
+    e.preventDefault();
+  }
+
+  // APP METHODS
+
+  function deleteCard(delId) {
+    console.log(delId);
+    console.log(myCards);
+    let myNewCards = myCards.filter((card) => card.id !== delId);
+
+    console.log(myNewCards);
+
+    myCards = myNewCards;
+
+    console.log(myCards);
+
+    showMyCards(myNewCards);
+  }
 
   function showMyCards() {
     myCollection.innerHTML = "";
@@ -78,14 +105,13 @@ function init() {
     myCards.map((card) => {
       let { imageUrl, name, id } = card;
 
-      console.log(myCards);
+      //console.log(myCards);
 
       myCollection.innerHTML += `
 
             <article>
               <img src='${imageUrl}' alt='${name}'/>
-
-              <button>Remove card</button>
+              <button class="del-btn" data-delbtn=${id}>Remove card</button>
             </article>
             `;
     });
