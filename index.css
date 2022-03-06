@@ -173,3 +173,48 @@ footer {
 .grid-cards > article > img {
   width: 100%;
 }
+
+/* POPUP details of card */
+
+section.see-details {
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.712);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: none;
+  cursor: pointer;
+}
+
+section.see-details.open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section.popup {
+  display: flex;
+  padding: 30px;
+  font-size: 20px;
+}
+
+section.popup h1,
+h5,
+p {
+  margin: 20px;
+  text-align: center;
+}
+
+.img-section {
+  padding: 20px;
+}
+
+.text-section {
+  padding-top: 50px;
+}

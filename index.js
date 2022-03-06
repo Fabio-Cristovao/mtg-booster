@@ -8,20 +8,22 @@ function init() {
   let allCardsGrid = document.querySelector("#all-cards-container");
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
-  console.log(searchInput.value);
+  //console.log(searchInput.value);
   let colorSection = document.querySelector(".search-for-color");
   let myCollection = document.querySelector("#my-cards-container");
   //console.log(myCollection);
   let myCollectionGrid = document.querySelector("#my-cards-container");
   //console.log(myCollectionGrid);
+  let seeDetails = document.querySelector("#see-details");
+  console.log(seeDetails);
 
   // form color variables
 
-  let red = document.querySelector("#red");
+  /* let red = document.querySelector("#red");
   let blue = document.querySelector("#blue");
   let green = document.querySelector("#green");
   let black = document.querySelector("#black");
-  let white = document.querySelector("#white");
+  let white = document.querySelector("#white"); */
 
   // console.log(cardsGrid);\
 
@@ -32,25 +34,13 @@ function init() {
   allCardsGrid.addEventListener("click", allCardsGridEvents, false);
   myCollectionGrid.addEventListener("click", myCollectionGridEvents, false);
   //console.log(myCollectionGrid);
+  seeDetails.addEventListener("click", hideDetails, false);
 
   //script logic
 
   let cards = [];
-  let cardColor = [];
   let colorString;
   let myCards = [];
-
-  /* function colorSelection(e) {
-    let color = e.target.id;
-    if (e.target.checked === true) {
-      //console.log(e.target.id);
-
-      cardColor.push(color);
-
-      colorString = cardColor.toString();
-      console.log(colorString);
-    }
-  } */
 
   function allCardsGridEvents(e) {
     if (e.target.className === "add-btn") {
@@ -80,10 +70,50 @@ function init() {
       deleteCard(delId);
     }
 
+    if (e.target.nodeName === "IMG") {
+      //console.log("this section");
+      let seeDetail = e.target.dataset.detail;
+      console.log(seeDetail);
+
+      showDetails(seeDetail);
+    }
+
     e.preventDefault();
   }
 
   // APP METHODS
+
+  function hideDetails() {
+    seeDetails.classList.toggle("open");
+  }
+
+  function showDetails(seeDetail) {
+    seeDetails.classList.toggle("open");
+
+    myCards.filter((c) => {
+      let { imageUrl, name, text, type, rarity, set, date, id } = c;
+
+      if (id === seeDetail) {
+        seeDetails.innerHTML = `
+        
+        <section class="popup">
+          <article class="img-section">
+            <h1>${name}</h1>
+            <img src='${imageUrl}' alt='${name}'>
+          </article>
+          <article class="text-section">
+            <p>Card text: ${text}</p>
+            <h5>Type:${type}</h5>
+            <h5>Rarity: ${rarity}</h5>
+            <h5>Set: ${set}</h5>
+            <h5>Date of release: ${date}</h5>
+          </article>
+        </section>
+        
+        `;
+      }
+    });
+  }
 
   function deleteCard(delId) {
     console.log(delId);
@@ -109,8 +139,8 @@ function init() {
 
       myCollection.innerHTML += `
 
-            <article>
-              <img src='${imageUrl}' alt='${name}'/>
+            <article class="see-details" >
+              <img src='${imageUrl}' alt='${name}' data-detail=${id} />
               <button class="del-btn" data-delbtn=${id}>Remove card</button>
             </article>
             `;
