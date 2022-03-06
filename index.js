@@ -31,6 +31,7 @@ function init() {
 
   //colorSection.addEventListener("change", colorSelection, false);
   showCardsBtn.addEventListener("click", showCards, false);
+  searchInput.addEventListener("keypress", showCardsUsingEnter, false);
   allCardsGrid.addEventListener("click", allCardsGridEvents, false);
   myCollectionGrid.addEventListener("click", myCollectionGridEvents, false);
   //console.log(myCollectionGrid);
@@ -147,7 +148,16 @@ function init() {
     });
   }
 
-  function showCards(e) {
+  function showCardsUsingEnter(e) {
+    if (e.keyCode === 13) {
+      showCards();
+      console.log(e.keyCode);
+
+      e.preventDefault();
+    }
+  }
+
+  function showCards() {
     if (searchInput.value == "") {
       fetch(`https://api.magicthegathering.io/v1/cards?colors=${colorString}`)
         .then((response) => response.json())
@@ -171,8 +181,6 @@ function init() {
           (error) => (allCardsGrid.textContent = "erro ao carregar cartas")
         );
     }
-
-    e.preventDefault();
   }
 
   //console.log(cardName);
