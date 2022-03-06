@@ -7,6 +7,14 @@
   /* border: 2px solid green; */
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 1em;

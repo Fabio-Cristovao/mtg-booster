@@ -9,13 +9,14 @@ function init() {
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
   //console.log(searchInput.value);
-  let colorSection = document.querySelector(".search-for-color");
+  /*  let colorSection = document.querySelector(".search-for-color"); */
   let myCollection = document.querySelector("#my-cards-container");
   //console.log(myCollection);
   let myCollectionGrid = document.querySelector("#my-cards-container");
   //console.log(myCollectionGrid);
   let seeDetails = document.querySelector("#see-details");
-  console.log(seeDetails);
+
+  //console.log(seeDetails);
 
   // form color variables
 
@@ -79,10 +80,28 @@ function init() {
       showDetails(seeDetail);
     }
 
+    if (e.target.className === "edit-btn") {
+      let edit = e.target.dataset.editbtn;
+      console.log(edit);
+      addNote(edit);
+    }
+
     e.preventDefault();
   }
 
   // APP METHODS
+
+  function addNote(edit) {
+    /* console.log(editBtn.dataset.editbtn); */
+
+    let delBtn = document.querySelector(".del-btn");
+    let editBtn = document.querySelector(".edit-btn");
+
+    if (editBtn.dataset.editbtn === edit) {
+      delBtn.classList.add("hide");
+      editBtn.classList.add("hide");
+    }
+  }
 
   function hideDetails() {
     seeDetails.classList.toggle("open");
@@ -143,6 +162,7 @@ function init() {
             <article class="see-details" >
               <img src='${imageUrl}' alt='${name}' data-detail=${id} />
               <button class="del-btn" data-delbtn=${id}>Remove card</button>
+              <button class="edit-btn" data-editbtn=${id}>Add a  note</button>
             </article>
             `;
     });
