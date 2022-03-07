@@ -43,6 +43,7 @@ function init() {
   let cards = [];
   let colorString;
   let myCards = [];
+  let myNotes = [];
 
   function allCardsGridEvents(e) {
     if (e.target.className === "add-btn") {
@@ -92,15 +93,10 @@ function init() {
   // APP METHODS
 
   function addNote(edit) {
-    /* console.log(editBtn.dataset.editbtn); */
+    let textArea = document.querySelector(`[data-note="${edit}"]`);
 
-    let delBtn = document.querySelector(".del-btn");
-    let editBtn = document.querySelector(".edit-btn");
-
-    if (editBtn.dataset.editbtn === edit) {
-      delBtn.classList.add("hide");
-      editBtn.classList.add("hide");
-    }
+    textArea.className = "show";
+    // get the card where i want to add a note
   }
 
   function hideDetails() {
@@ -159,10 +155,11 @@ function init() {
 
       myCollection.innerHTML += `
 
-            <article class="see-details" >
+            <article class="see-details-details" data-card=${id}>
               <img src='${imageUrl}' alt='${name}' data-detail=${id} />
               <button class="del-btn" data-delbtn=${id}>Remove card</button>
               <button class="edit-btn" data-editbtn=${id}>Add a  note</button>
+              <textarea id="textArea" class="hide" data-note=${id}>add a note here ...</textarea>
             </article>
             `;
     });
