@@ -81,10 +81,10 @@ function init() {
       showDetails(seeDetail);
     }
 
-    if (e.target.className === "edit-btn") {
-      let edit = e.target.dataset.editbtn;
-      console.log(edit);
-      addNote(edit);
+    if (e.target.className === "submit-note-btn") {
+      let subNote = e.target.dataset.submit_note;
+      console.log(subNote);
+      addNote(subNote);
     }
 
     e.preventDefault();
@@ -92,10 +92,18 @@ function init() {
 
   // APP METHODS
 
-  function addNote(edit) {
-    let textArea = document.querySelector(`[data-note="${edit}"]`);
+  function addNote(subNote) {
+    let textArea = document.querySelector(`[data-note="${subNote}"]`);
+    let noteSubmitBtn = document.querySelector(
+      `[data-submit_note="${subNote}"]`
+    );
+    let noteText = document.querySelector(`[data-note_text="${subNote}"]`);
 
-    textArea.className = "show";
+    console.log(textArea.value);
+
+    noteText.innerHTML = textArea.value;
+    console.log(noteText.innerHTML);
+
     // get the card where i want to add a note
   }
 
@@ -158,8 +166,9 @@ function init() {
             <article class="see-details-details" data-card=${id}>
               <img src='${imageUrl}' alt='${name}' data-detail=${id} />
               <button class="del-btn" data-delbtn=${id}>Remove card</button>
-              <button class="edit-btn" data-editbtn=${id}>Add a  note</button>
-              <textarea id="textArea" class="hide" data-note=${id}>add a note here ...</textarea>
+              <textarea id="textArea" class="show" data-note=${id}>add a note here ...</textarea>
+              <p class="note" data-note_text=${id}></p>
+              <button class="submit-note-btn" data-submit_note=${id}>Submit note</button>
             </article>
             `;
     });
