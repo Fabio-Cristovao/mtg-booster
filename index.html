@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="index.css" />
     <title>MTG draft</title>
   </head>
+
   <body>
     <div class="container">
       <header class="hero">
@@ -25,27 +27,34 @@
               <form>
                 <section class="search-title-form">
                   <form id="title-search-form">
-                    <input
-                      type="text"
-                      placeholder="Search cards name..."
-                      id="title-search"
-                    />
+                    <input type="text" placeholder="Search cards name..." id="title-search" />
                   </form>
                 </section>
                 <section class="search-for-color">
                   <h3>Search for color:</h3>
-                  <label for="">Black</label>
-                  <input type="checkbox" id="black" />
-                  <label for="">Red</label>
-                  <input type="checkbox" id="red" />
-                  <label for="">Green</label>
-                  <input type="checkbox" id="green" />
-                  <label for="">Blue</label>
-                  <input type="checkbox" id="blue" />
-                  <label for="">White</label>
-                  <input type="checkbox" id="white" />
+                  <div class="checkbox-container">
+                    <label for="">Black</label>
+                    <input type="checkbox" id="black" class="color-checkbox" />
+                  </div>
+                  <div class="checkbox-container">
+                    <label for="">Red</label>
+                    <input type="checkbox" id="red" class="color-checkbox" />
+                  </div>
+                  <div class="checkbox-container">
+                    <label for="">Green</label>
+                    <input type="checkbox" id="green" class="color-checkbox" />
+                  </div>
+                  <div class="checkbox-container">
+                    <label for="">Blue</label>
+                    <input type="checkbox" id="blue" class="color-checkbox" />
+                  </div>
+                  <div class="checkbox-container">
+                    <label for="">White</label>
+                    <input type="checkbox" id="white" class="color-checkbox" />
+                  </div>
                 </section>
                 <button id="search-btn">Show cards</button>
+
               </form>
             </div>
             <div class="sort-cards"></div>
@@ -80,4 +89,5 @@
     </script> -->
     <script type="module" src="index.js"></script>
   </body>
+
 </html>

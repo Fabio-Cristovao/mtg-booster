@@ -9,7 +9,7 @@ function init() {
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
   //console.log(searchInput.value);
-  /*  let colorSection = document.querySelector(".search-for-color"); */
+  let colorCheckboxes = document.querySelectorAll(".color-checkbox");
   let myCollection = document.querySelector("#my-cards-container");
   //console.log(myCollection);
   let myCollectionGrid = document.querySelector("#my-cards-container");
@@ -30,7 +30,9 @@ function init() {
 
   // page addEventListener
 
-  //colorSection.addEventListener("change", colorSelection, false);
+  colorCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', enableColors, false);
+  })
   showCardsBtn.addEventListener("click", showCards, false);
   searchInput.addEventListener("keypress", showCardsUsingEnter, false);
   allCardsGrid.addEventListener("click", allCardsGridEvents, false);
@@ -41,9 +43,19 @@ function init() {
   //script logic
 
   let cards = [];
-  let colorString;
+  let enabledColors = [];
   let myCards = [];
   let myNotes = [];
+
+  function enableColors() {
+    enabledColors = Array.from(colorCheckboxes).filter(i => i.checked).map(i => i.id);
+    console.log(enabledColors);
+
+    let searchColors = enabledColors.toString();
+    console.log(searchColors);
+
+    return searchColors;
+  }
 
   function allCardsGridEvents(e) {
     if (e.target.className === "add-btn") {
@@ -126,33 +138,33 @@ function init() {
     console.log(filteredCard);
 
     /* console.log(filteredCard[0]);
-
+  
     let newObjectCard = {
       note: textArea.value,
       cardId: subNoteId,
       ...filteredCard[0],
     };
-
+  
     console.log(newObjectCard);
-
+  
     myCards.shift();
     console.log(myCards);
-
+  
     let myNewCards = [newObjectCard, ...myCards];
     console.log(myNewCards);
-
+  
     showMyNewCards(myNewCards);
   } */
 
     /* function showMyNewCards(myNewCards) {
     myCollection.innerHTML = "";
-
+  
     myNewCards.map((card) => {
       let { imageUrl, name, id, note } = card;
-
+  
       if (note === "") {
         myCollection.innerHTML += `
-
+  
             <article class="see-details-details" data-card=${id}>
               <img src='${imageUrl}' alt='${name}' data-detail=${id} />
               <button class="del-btn" data-delbtn=${id}>Remove card</button>
@@ -161,17 +173,17 @@ function init() {
             `;
       } else {
         myCollection.innerHTML += `
-
+  
             <article class="see-details-details" data-card=${id}>
               <img src='${imageUrl}' alt='${name}' data-detail=${id} />
               <button class="del-btn" data-delbtn=${id}>Remove card</button>
                <button class="add-note-btn" data-add_note=${id}>Add note</button>
                <p>${note}</>
             </article>
-
+  
             `;
       }
-
+  
       //console.log(myCards);
     });
     */
@@ -184,9 +196,9 @@ function init() {
       `[data-submit_note="${subNote}"]`
     );
     let noteText = document.querySelector(`[data-note_text="${subNote}"]`);
-
+  
     console.log(textArea.value);
-
+  
     noteText.innerHTML = textArea.value;
     console.log(noteText.innerHTML); */
     // get the card where i want to add a note
@@ -225,7 +237,7 @@ function init() {
   }
 
   /* let textArea = document.querySelector(".note-text");
-
+  
   myNotes.push([{ note: textArea.value, id: subNote }]);
   console.log(myNotes); */
 
@@ -279,28 +291,41 @@ function init() {
   }
 
   function showCards() {
-    if (searchInput.value == "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?colors=${colorString}`)
+
+    let colorSearch = enabledColors.toString();
+    if (searchInput.value === "" && colorSearch !== "") {
+      fetch(`https://api.magicthegathering.io/v1/cards?colors=${colorSearch}`)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
           showCardsFilters();
         })
         .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
-    } else {
-      console.log("false");
-
-      fetch(
-        `https://api.magicthegathering.io/v1/cards?name=${searchInput.value}`
-      )
+    } else if (searchInput.value !== "" && colorSearch === "") {
+      fetch(`https://api.magicthegathering.io/v1/cards?name=${searchInput.value}`)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
           showCardsFilters();
         })
-        .catch(
-          (error) => (allCardsGrid.textContent = "erro ao carregar cartas")
-        );
+        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+    } else if (searchInput.value !== "" && colorSearch !== "") {
+      fetch(`https://api.magicthegathering.io/v1/cards?name=${searchInput.value}&colors=${colorSearch}`)
+        .then((response) => response.json())
+        .then((data) => {
+          cards = data.cards;
+          showCardsFilters();
+        })
+        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+    } else if (searchInput.value === "" && colorSearch === "") {
+      fetch(`https://api.magicthegathering.io/v1/cards?random=true`)
+        .then((response) => response.json())
+        .then((data) => {
+          cards = data.cards;
+          showCardsFilters();
+        })
+        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+
     }
   }
 
