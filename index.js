@@ -14,7 +14,8 @@ function init() {
   //console.log(myCollection);
   let myCollectionGrid = document.querySelector("#my-cards-container");
   //console.log(myCollectionGrid);
-  let seeDetails = document.querySelector("#see-details");
+  let seeDetailsSection = document.querySelector("#see-details");
+  console.log(seeDetailsSection)
 
   //console.log(seeDetails);
 
@@ -38,7 +39,7 @@ function init() {
   allCardsGrid.addEventListener("click", allCardsGridEvents, false);
   myCollectionGrid.addEventListener("click", myCollectionGridEvents, false);
   //console.log(myCollectionGrid);
-  seeDetails.addEventListener("click", seeDetailsEvents, false);
+  seeDetailsSection.addEventListener("click", seeDetailsEvents, false);
 
   //script logic
 
@@ -47,31 +48,29 @@ function init() {
   let myCards = [];
   let myNotes = [];
 
-  function enableColors() {
-    enabledColors = Array.from(colorCheckboxes).filter(i => i.checked).map(i => i.id);
-    console.log(enabledColors);
-
-    let searchColors = enabledColors.toString();
-    console.log(searchColors);
-
-    return searchColors;
-  }
 
   function allCardsGridEvents(e) {
     if (e.target.className === "add-btn") {
       let id = e.target.dataset.id;
-      // console.log(id);
+      console.log(id);
 
       cards.filter((card) => {
         if (card.id === id) {
           myCards.push(card);
         }
-
         showMyCards();
       });
 
       //console.log(myCards);
     }
+
+    if (e.target.nodeName === "IMG") {
+      console.log(e.target.id);
+      let id = e.target.id;
+      seeDetails(id);
+    }
+
+
 
     e.preventDefault();
   }
@@ -85,24 +84,23 @@ function init() {
       deleteCard(delId);
     }
 
-    if (e.target.nodeName === "IMG") {
-      //console.log("this section");
-      let seeDetail = e.target.dataset.detail;
-      //console.log(seeDetail);
-
-      showDetails(seeDetail);
-    }
-
     if (e.target.className === "add-note-btn") {
       let noteId = e.target.dataset.add_note;
       console.log(addNote);
       addNote(noteId);
     }
 
+    if (e.target.nodeName === "IMG") {
+      let imgId = e.target.id;
+      console.log(imgId);
+      seeMyDetails(imgId)
+    }
+
     e.preventDefault();
   }
 
   function seeDetailsEvents(e) {
+    console.log(e.target)
     if (e.target.className === "cancel") {
       hideDetails();
     }
@@ -119,6 +117,84 @@ function init() {
   }
 
   // APP METHODS
+
+  function enableColors() {
+    enabledColors = Array.from(colorCheckboxes).filter(i => i.checked).map(i => i.id);
+    console.log(enabledColors);
+
+    let searchColors = enabledColors.toString();
+    console.log(searchColors);
+
+    return searchColors;
+  }
+
+  function seeMyDetails(imgId) {
+
+    seeDetailsSection.classList.toggle("open");
+
+    let card = myCards.filter(c => {
+
+      let { imageUrl, name, text, type, rarity, set, date } = c;
+
+      if (c.id === imgId) {
+
+        seeDetailsSection.innerHTML = `
+        
+        <article class="img-section">
+            <h1>${name}</h1>
+            <img src='${imageUrl}' alt='${name}'>
+          </article>
+          <article class="text-section">
+            <p>Card text: ${text}</p>
+            <h5>Type:${type}</h5>
+            <h5>Rarity: ${rarity}</h5>
+            <h5>Set: ${set}</h5>
+            <h5>Date of release: ${date}</h5>
+            <button class="cancel">X</button>
+          </article>
+        
+        `
+
+      }
+
+    })
+
+
+  }
+
+  function seeDetails(id) {
+
+    seeDetailsSection.classList.toggle("open");
+
+
+    let card = cards.filter(c => {
+
+      let { imageUrl, name, text, type, rarity, set, date } = c;
+
+      if (c.id === id) {
+
+
+        seeDetailsSection.innerHTML = `
+          <article class="img-section">
+            <h1>${name}</h1>
+            <img src='${imageUrl}' alt='${name}'>
+          </article>
+          <article class="text-section">
+            <p>Card text: ${text}</p>
+            <h5>Type:${type}</h5>
+            <h5>Rarity: ${rarity}</h5>
+            <h5>Set: ${set}</h5>
+            <h5>Date of release: ${date}</h5>
+            <button class="cancel">X</button>
+          </article>
+          `;
+      }
+
+    })
+    console.log(card)
+
+
+  }
 
   function subNote(subNoteId) {
     myNotes = [];
@@ -138,55 +214,55 @@ function init() {
     console.log(filteredCard);
 
     /* console.log(filteredCard[0]);
-  
+    
     let newObjectCard = {
       note: textArea.value,
       cardId: subNoteId,
       ...filteredCard[0],
     };
-  
+    
     console.log(newObjectCard);
-  
+    
     myCards.shift();
     console.log(myCards);
-  
+    
     let myNewCards = [newObjectCard, ...myCards];
     console.log(myNewCards);
-  
+    
     showMyNewCards(myNewCards);
   } */
 
     /* function showMyNewCards(myNewCards) {
-    myCollection.innerHTML = "";
-  
-    myNewCards.map((card) => {
-      let { imageUrl, name, id, note } = card;
-  
-      if (note === "") {
-        myCollection.innerHTML += `
-  
-            <article class="see-details-details" data-card=${id}>
-              <img src='${imageUrl}' alt='${name}' data-detail=${id} />
-              <button class="del-btn" data-delbtn=${id}>Remove card</button>
-               <button class="add-note-btn" data-add_note=${id}>Add note</button>
-            </article>
-            `;
-      } else {
-        myCollection.innerHTML += `
-  
-            <article class="see-details-details" data-card=${id}>
-              <img src='${imageUrl}' alt='${name}' data-detail=${id} />
-              <button class="del-btn" data-delbtn=${id}>Remove card</button>
-               <button class="add-note-btn" data-add_note=${id}>Add note</button>
-               <p>${note}</>
-            </article>
-  
-            `;
-      }
-  
-      //console.log(myCards);
-    });
-    */
+      myCollection.innerHTML = "";
+      
+      myNewCards.map((card) => {
+        let { imageUrl, name, id, note } = card;
+        
+        if (note === "") {
+          myCollection.innerHTML += `
+          
+          <article class="see-details-details" data-card=${id}>
+          <img src='${imageUrl}' alt='${name}' data-detail=${id} />
+          <button class="del-btn" data-delbtn=${id}>Remove card</button>
+          <button class="add-note-btn" data-add_note=${id}>Add note</button>
+          </article>
+          `;
+        } else {
+          myCollection.innerHTML += `
+          
+          <article class="see-details-details" data-card=${id}>
+          <img src='${imageUrl}' alt='${name}' data-detail=${id} />
+          <button class="del-btn" data-delbtn=${id}>Remove card</button>
+          <button class="add-note-btn" data-add_note=${id}>Add note</button>
+          <p>${note}</>
+          </article>
+          
+          `;
+        }
+        
+        //console.log(myCards);
+      });
+      */
   }
 
   function addNote(noteId) {
@@ -194,13 +270,13 @@ function init() {
     /* let textArea = document.querySelector(`[data-note="${subNote}"]`);
     let noteSubmitBtn = document.querySelector(
       `[data-submit_note="${subNote}"]`
-    );
-    let noteText = document.querySelector(`[data-note_text="${subNote}"]`);
-  
-    console.log(textArea.value);
-  
-    noteText.innerHTML = textArea.value;
-    console.log(noteText.innerHTML); */
+      );
+      let noteText = document.querySelector(`[data-note_text="${subNote}"]`);
+      
+      console.log(textArea.value);
+      
+      noteText.innerHTML = textArea.value;
+      console.log(noteText.innerHTML); */
     // get the card where i want to add a note
 
     seeDetails.classList.toggle("open");
@@ -210,39 +286,39 @@ function init() {
 
       if (id === noteId) {
         seeDetails.innerHTML = `
-        
-        <section class="popup">
+          
+          <section class="popup">
           <article class="img-section">
-            <h1>${name}</h1>
-            <img src='${imageUrl}' alt='${name}'>
+          <h1>${name}</h1>
+          <img src='${imageUrl}' alt='${name}'>
           </article>
           <article class="text-section">
-            <p>Card text: ${text}</p>
-            <h5>Type:${type}</h5>
-            <h5>Rarity: ${rarity}</h5>
-            <h5>Set: ${set}</h5>
-            <h5>Date of release: ${date}</h5>
-            <h4>Add a note to your card:</h4>
-            <textarea class="note-text"></textarea>
-            <button class="submit-note-btn" data-add_note=${id}>Add note</button>
-            <p data-note=${id}></p>
-            <button class="cancel">X</button>
+          <p>Card text: ${text}</p>
+          <h5>Type:${type}</h5>
+          <h5>Rarity: ${rarity}</h5>
+          <h5>Set: ${set}</h5>
+          <h5>Date of release: ${date}</h5>
+          <h4>Add a note to your card:</h4>
+          <textarea class="note-text"></textarea>
+          <button class="submit-note-btn" data-add_note=${id}>Add note</button>
+          <p data-note=${id}></p>
+          <button class="cancel">X</button>
           </article>
           
-        </section>
-        
-        `;
+          </section>
+          
+          `;
       }
     });
   }
 
   /* let textArea = document.querySelector(".note-text");
-  
+   
   myNotes.push([{ note: textArea.value, id: subNote }]);
   console.log(myNotes); */
 
   function hideDetails() {
-    seeDetails.classList.toggle("open");
+    seeDetailsSection.classList.toggle("open");
   }
 
   function deleteCard(delId) {
@@ -268,16 +344,16 @@ function init() {
       //console.log(myCards);
 
       myCollection.innerHTML += `
-
-            <article class="see-details-details" data-card=${id}>
-              <img src='${imageUrl}' alt='${name}' data-detail=${id} />
-              <button class="del-btn" data-delbtn=${id}>Remove card</button>
-               <button class="add-note-btn" data-add_note=${id}>Add note</button>
-               
-
-            </article>
-
-            `;
+        
+        <article class="see-details-details" data-card=${id}>
+        <img src='${imageUrl}' alt='${name}' id=${id} />
+        <button class="del-btn" data-delbtn=${id}>Remove card</button>
+        <button class="add-note-btn" data-add_note=${id}>Add note</button>
+        
+        
+        </article>
+        
+        `;
     });
   }
 
@@ -294,7 +370,7 @@ function init() {
 
     let colorSearch = enabledColors.toString();
     if (searchInput.value === "" && colorSearch !== "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?colors=${colorSearch}`)
+      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&colors=${colorSearch}`)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -302,7 +378,7 @@ function init() {
         })
         .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
     } else if (searchInput.value !== "" && colorSearch === "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?name=${searchInput.value}`)
+      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}`)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -310,7 +386,7 @@ function init() {
         })
         .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
     } else if (searchInput.value !== "" && colorSearch !== "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?name=${searchInput.value}&colors=${colorSearch}`)
+      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}&colors=${colorSearch}`)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -318,7 +394,7 @@ function init() {
         })
         .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
     } else if (searchInput.value === "" && colorSearch === "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?random=true`)
+      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&random=true`)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -338,9 +414,9 @@ function init() {
       let { imageUrl, id } = card;
 
       allCardsGrid.innerHTML += `
-
-            <article>
-              <img src='${imageUrl}' alt='${name}'/>
+        
+        <article>
+              <img src='${imageUrl}' alt='${name}' id=${id} />
               <button class="add-btn" data-id=${id}>Add card</button>
             </article>
             `;
