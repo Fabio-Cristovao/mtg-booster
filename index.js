@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
   // declaration of global variables
-
+  let cardsGrid = document.querySelector(".main-content")
+  console.log(cardsGrid)
   let allCardsGrid = document.querySelector("#all-cards-container");
   let showCardsBtn = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#title-search");
@@ -16,6 +17,9 @@ function init() {
   //console.log(myCollectionGrid);
   let seeDetailsSection = document.querySelector("#see-details");
   console.log(seeDetailsSection)
+  let filters = document.querySelector(".filters-form")
+  console.log(filters);
+  let warning = document.createElement('h1');
 
   //console.log(seeDetails);
 
@@ -320,6 +324,7 @@ function init() {
   function showCards() {
 
     let colorSearch = enabledColors.toString();
+
     if (searchInput.value === "" && colorSearch !== "") {
       fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&colors=${colorSearch}`)
         .then((response) => response.json())
@@ -327,7 +332,7 @@ function init() {
           cards = data.cards;
           showCardsFilters();
         })
-        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+        .catch((error) => (cardsGrid.textContent = error));
     } else if (searchInput.value !== "" && colorSearch === "") {
       fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}`)
         .then((response) => response.json())
@@ -335,7 +340,7 @@ function init() {
           cards = data.cards;
           showCardsFilters();
         })
-        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+        .catch((error) => (cardsGrid.textContent = error));
     } else if (searchInput.value !== "" && colorSearch !== "") {
       fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}&colors=${colorSearch}`)
         .then((response) => response.json())
@@ -343,7 +348,7 @@ function init() {
           cards = data.cards;
           showCardsFilters();
         })
-        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
+        .catch((error) => (cardsGrid.textContent = error));
     } else if (searchInput.value === "" && colorSearch === "") {
       fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&random=true`)
         .then((response) => response.json())
@@ -351,27 +356,36 @@ function init() {
           cards = data.cards;
           showCardsFilters();
         })
-        .catch((error) => (cardsGrid.textContent = "erro ao carregar cartas"));
-
+        .catch((error) => (cardsGrid.textContent = error));
     }
   }
 
-  //console.log(cardName);
-
   function showCardsFilters() {
-    allCardsGrid.innerHTML = "";
 
-    cards.map((card) => {
-      let { imageUrl, id } = card;
+    if (cards.length === 0) {
 
-      allCardsGrid.innerHTML += `
-        
-        <article>
-              <img src='${imageUrl}' alt='${name}' id=${id} />
-              <button class="add-btn" data-id=${id}>Add card</button>
-            </article>
-            `;
-    });
+
+      warning.textContent = "No cards found!"
+      filters.appendChild(warning);
+
+    } else {
+
+      warning.textContent = ""
+
+      allCardsGrid.innerHTML = "";
+
+      cards.map((card) => {
+        let { imageUrl, id } = card;
+
+        allCardsGrid.innerHTML += `
+          
+          <article>
+                <img src='${imageUrl}' alt='${name}' id=${id} />
+                <button class="add-btn" data-id=${id}>Add card</button>
+              </article>
+              `;
+      });
+    }
 
     // console.log(showCards);
   }

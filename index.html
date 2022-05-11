@@ -5,6 +5,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css" />
     <title>MTG draft</title>
   </head>
@@ -32,25 +35,27 @@
                 </section>
                 <section class="search-for-color">
                   <h3>Search for color:</h3>
-                  <div class="checkbox-container">
-                    <label for="">Black</label>
-                    <input type="checkbox" id="black" class="color-checkbox" />
-                  </div>
-                  <div class="checkbox-container">
-                    <label for="">Red</label>
-                    <input type="checkbox" id="red" class="color-checkbox" />
-                  </div>
-                  <div class="checkbox-container">
-                    <label for="">Green</label>
-                    <input type="checkbox" id="green" class="color-checkbox" />
-                  </div>
-                  <div class="checkbox-container">
-                    <label for="">Blue</label>
-                    <input type="checkbox" id="blue" class="color-checkbox" />
-                  </div>
-                  <div class="checkbox-container">
-                    <label for="">White</label>
-                    <input type="checkbox" id="white" class="color-checkbox" />
+                  <div class="checkboxes-container">
+                    <div class="checkbox-container">
+                      <label for="">Black <span><img src="/images/swamp.svg" alt=""></span></label>
+                      <input type="checkbox" id="black" class="color-checkbox" />
+                    </div>
+                    <div class="checkbox-container">
+                      <label for="">Red <span><img src="/images/mountain.svg" alt=""></span></label>
+                      <input type="checkbox" id="red" class="color-checkbox" />
+                    </div>
+                    <div class="checkbox-container">
+                      <label for="">Green <span><img src="/images/forest.svg" alt=""></span></label>
+                      <input type="checkbox" id="green" class="color-checkbox" />
+                    </div>
+                    <div class="checkbox-container">
+                      <label for="">Blue <span><img src="/images/island.svg" alt=""></span></label>
+                      <input type="checkbox" id="blue" class="color-checkbox" />
+                    </div>
+                    <div class="checkbox-container">
+                      <label for="">White <span><img src="/images/plains.svg" alt=""></span></label>
+                      <input type="checkbox" id="white" class="color-checkbox" />
+                    </div>
                   </div>
                 </section>
                 <button id="search-btn">Show cards</button>
