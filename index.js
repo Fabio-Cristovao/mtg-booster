@@ -50,7 +50,7 @@ function init() {
   let cards = [];
   let enabledColors = [];
   let myCards = [];
-  console.log(myCards);
+  let url = "";
 
   function allCardsGridEvents(e) {
     if (e.target.className === "add-btn") {
@@ -201,17 +201,11 @@ function init() {
     if (indexOfCard !== -1) {
       myCards[indexOfCard] = newObject;
     }
-
-    //console.log(myCards);
-
-
     showMyCards(myCards);
     hideDetails();
-
   }
 
   function showNote(noteId) {
-    console.log(noteId)
 
     seeDetailsSection.classList.toggle("open");
 
@@ -220,7 +214,6 @@ function init() {
 
       if (id === noteId) {
         seeDetailsSection.innerHTML = `
-          
           <section class="popup">
           <article class="img-section">
           <h1>${name}</h1>
@@ -233,17 +226,11 @@ function init() {
           <p data-note=${id}></p>
           <button class="cancel">X</button>
           </article>
-          </section>
-          
+          </section>  
           `;
       }
     });
   }
-
-  /* let textArea = document.querySelector(".note-text");
-   
-  myNotes.push([{ note: textArea.value, id: subNote }]);
-  console.log(myNotes); */
 
   function hideDetails() {
     seeDetailsSection.classList.toggle("open");
@@ -252,13 +239,8 @@ function init() {
   function addToMyCards(id) {
     console.log(myCards)
     let addedCard = cards.find(c => c.id === id);
-
     console.log(addedCard)
-
     myCards.push(addedCard);
-
-    //console.log(myCards);
-
     showMyCards(myCards);
   }
 
@@ -266,13 +248,7 @@ function init() {
     console.log(delId);
     console.log(myCards);
     let myNewCards = myCards.filter((card) => card.id !== delId);
-
-    console.log(myNewCards);
-
     myCards = myNewCards;
-
-    console.log(myCards);
-
     showMyCards(myNewCards);
   }
 
@@ -306,10 +282,7 @@ function init() {
           </article>
           `;
       }
-
     });
-
-    console.log(array);
   }
 
   function showCardsUsingEnter(e) {
@@ -324,9 +297,13 @@ function init() {
   function showCards() {
 
     let colorSearch = enabledColors.toString();
+    console.log(searchInput.value);
+    console.log(colorSearch);
+    console.log(url);
 
     if (searchInput.value === "" && colorSearch !== "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&colors=${colorSearch}`)
+      url = `https://api.magicthegathering.io/v1/cards?contains=imageUrl&colors=${colorSearch}`;
+      fetch(url)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -334,7 +311,8 @@ function init() {
         })
         .catch((error) => (cardsGrid.textContent = error));
     } else if (searchInput.value !== "" && colorSearch === "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}`)
+      url = `https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}`
+      fetch(url)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -342,7 +320,8 @@ function init() {
         })
         .catch((error) => (cardsGrid.textContent = error));
     } else if (searchInput.value !== "" && colorSearch !== "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}&colors=${colorSearch}`)
+      url = `https://api.magicthegathering.io/v1/cards?contains=imageUrl&name=${searchInput.value}&colors=${colorSearch}`
+      fetch(url)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -350,7 +329,8 @@ function init() {
         })
         .catch((error) => (cardsGrid.textContent = error));
     } else if (searchInput.value === "" && colorSearch === "") {
-      fetch(`https://api.magicthegathering.io/v1/cards?contains=imageUrl&random=true`)
+      url = `https://api.magicthegathering.io/v1/cards?contains=imageUrl&random=true`
+      fetch(url)
         .then((response) => response.json())
         .then((data) => {
           cards = data.cards;
@@ -386,7 +366,5 @@ function init() {
               `;
       });
     }
-
-    // console.log(showCards);
   }
 }
