@@ -332,6 +332,7 @@ function init() {
 
       warning.textContent = "No cards found!"
       filters.appendChild(warning);
+      allCardsGrid.innerHTML = "";
 
     } else {
 
