@@ -21,18 +21,6 @@ function init() {
   console.log(filters);
   let warning = document.createElement('h1');
 
-  //console.log(seeDetails);
-
-  // form color variables
-
-  /* let red = document.querySelector("#red");
-  let blue = document.querySelector("#blue");
-  let green = document.querySelector("#green");
-  let black = document.querySelector("#black");
-  let white = document.querySelector("#white"); */
-
-  // console.log(cardsGrid);\
-
   // page addEventListener
 
   colorCheckboxes.forEach(function (checkbox) {
@@ -64,9 +52,6 @@ function init() {
       let id = e.target.id;
       seeDetails(id);
     }
-
-
-
     e.preventDefault();
   }
 
